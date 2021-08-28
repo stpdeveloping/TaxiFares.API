@@ -11,6 +11,7 @@ namespace TaxiFares.API.Domain.Aggregates.CompanyAggregate
         [Required]
         public readonly string City;
 
+        [Required]
         public virtual Fares Fares { get; private set; }
 
         public Company()
