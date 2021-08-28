@@ -1,40 +1,52 @@
+﻿using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using TaxiFares.API.Extensions;
+using TaxiFares.API.Infrastructure;
+using TaxiFares.API.Infrastructure.MappingProfiles;
 
+[assembly: ApiController]
 namespace TaxiFares.API
 {
     public class Startup
     {
-        // This method gets called by the runtime. Use this method to add services to the container.
-        // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
-        public void ConfigureServices(IServiceCollection services)
+        private readonly IConfiguration configuration;
+        private readonly IWebHostEnvironment environment;
+
+        public Startup(IConfiguration configuration,
+            IWebHostEnvironment environment)
         {
+            this.configuration = configuration;
+            this.environment = environment;
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void ConfigureServices(IServiceCollection services)
         {
-            if (env.IsDevelopment())
+            services.AddControllers();
+            services.AddMediatR(typeof(Startup));
+            services.AddAutoMapper(config =>
+                config.AddProfile<CompanyProfile>());
+            services.AddDbDependencies(configuration);
+            if (environment.IsDevelopment())
+                services.AddSwaggerGen();
+        }
+
+        public void Configure(IApplicationBuilder app, Context context)
+        {
+            if (environment.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                string apiName = GetType().Assembly.GetName().Name;
+                app.UseSwagger(apiName);
             }
-
             app.UseRouting();
-
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapGet("/", async context =>
-                {
-                    await context.Response.WriteAsync("Hello World!");
-                });
-            });
+            app.UseEndpoints(endpoints => endpoints.MapControllers());
+            context.Database.Migrate();
         }
     }
 }
