@@ -7,20 +7,16 @@
 * Docker
 
 ## Setup
-1. Install the latest version of Visual Studio: 
-   https://visualstudio.microsoft.com/pl/vs/
-2. Install Windows Subsystem for Linux: 
-   https://docs.microsoft.com/en-us/windows/wsl/install
-3. Install Docker Desktop for Windows: 
-   https://docs.docker.com/desktop/windows/install/
-4. Run solution in Visual Studio
-5. Run Swagger (`http://localhost/swagger`) to see available API endpoints
+1. Install the latest version of Visual Studio: <br/>https://visualstudio.microsoft.com/pl/vs/
+2. Install Windows Subsystem for Linux: <br/>https://docs.microsoft.com/en-us/windows/wsl/install
+3. Install Docker Desktop for Windows: <br/>https://docs.docker.com/desktop/windows/install/
+1. Run solution in Visual Studio
+2. Run Swagger (`http://localhost/swagger`) to see available API endpoints
 
 ## Status
 Project is under active development
 
 ## Architecture
 API is written in DDD approach combined with CQRS pattern. Unlike to Microsoft's examples the queries are also using Entity Framework like commands for better project management. 
-There are some limitations due to using SQLite as database provider - let check documentation for details: 
-https://docs.microsoft.com/pl-pl/ef/core/providers/sqlite/limitations
+There are some limitations due to using SQLite as database provider - let check documentation for details: <br/>https://docs.microsoft.com/pl-pl/ef/core/providers/sqlite/limitations
 
