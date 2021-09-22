@@ -5,9 +5,9 @@ VisualStudioVersion = 16.0.31205.134
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TaxiFares.API", "TaxiFares.API\TaxiFares.API.csproj", "{B31F985D-F902-4002-B207-20CFC9CB587E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaxiFares.API.Domain", "TaxiFares.API.Domain\TaxiFares.API.Domain.csproj", "{32BBD785-715C-4A90-918F-9BA1F1249560}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TaxiFares.API.Domain", "TaxiFares.API.Domain\TaxiFares.API.Domain.csproj", "{32BBD785-715C-4A90-918F-9BA1F1249560}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaxiFares.API.Infrastructure", "TaxiFares.API.Infrastructure\TaxiFares.API.Infrastructure.csproj", "{38AE2AA6-3898-4442-B071-92388CC67B46}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TaxiFares.API.Infrastructure", "TaxiFares.API.Infrastructure\TaxiFares.API.Infrastructure.csproj", "{38AE2AA6-3898-4442-B071-92388CC67B46}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

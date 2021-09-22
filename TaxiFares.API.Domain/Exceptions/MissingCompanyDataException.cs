@@ -1,15 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace TaxiFares.API.Domain.Exceptions
+﻿namespace TaxiFares.API.Domain.Exceptions
 {
-    public class MissingCompanyDataException : Exception
+    public class MissingCompanyDataException : MissingDataException
     {
-        public MissingCompanyDataException(string missingProperty) :
-            base(missingProperty)
+        public MissingCompanyDataException(string propertyName) :
+            base(propertyName)
         {
         }
     }

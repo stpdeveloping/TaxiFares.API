@@ -14,7 +14,19 @@ namespace TaxiFares.API.Infrastructure.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "5.0.9");
+                .HasAnnotation("ProductVersion", "5.0.10");
+
+            modelBuilder.Entity("TaxiFares.API.Domain.Aggregates.CityAggregate.City", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Id");
+
+                    b.ToTable("Cities");
+                });
 
             modelBuilder.Entity("TaxiFares.API.Domain.Aggregates.CompanyAggregate.Company", b =>
                 {
@@ -22,12 +34,14 @@ namespace TaxiFares.API.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("City")
+                    b.Property<DateTime>("ChangeDate")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT")
+                        .HasDefaultValueSql("DATE()");
+
+                    b.Property<string>("CityId")
                         .IsRequired()
                         .HasColumnType("TEXT");
-
-                    b.Property<int?>("FaresId")
-                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -35,7 +49,7 @@ namespace TaxiFares.API.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("FaresId");
+                    b.HasIndex("CityId");
 
                     b.ToTable("Companies");
                 });
@@ -44,6 +58,9 @@ namespace TaxiFares.API.Infrastructure.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("CompanyId")
                         .HasColumnType("INTEGER");
 
                     b.Property<double>("I")
@@ -60,15 +77,41 @@ namespace TaxiFares.API.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("CompanyId")
+                        .IsUnique();
+
                     b.ToTable("Fares");
                 });
 
             modelBuilder.Entity("TaxiFares.API.Domain.Aggregates.CompanyAggregate.Company", b =>
                 {
-                    b.HasOne("TaxiFares.API.Domain.Aggregates.CompanyAggregate.Fares", "Fares")
-                        .WithMany()
-                        .HasForeignKey("FaresId");
+                    b.HasOne("TaxiFares.API.Domain.Aggregates.CityAggregate.City", "City")
+                        .WithMany("Companies")
+                        .HasForeignKey("CityId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
+                    b.Navigation("City");
+                });
+
+            modelBuilder.Entity("TaxiFares.API.Domain.Aggregates.CompanyAggregate.Fares", b =>
+                {
+                    b.HasOne("TaxiFares.API.Domain.Aggregates.CompanyAggregate.Company", "Company")
+                        .WithOne("Fares")
+                        .HasForeignKey("TaxiFares.API.Domain.Aggregates.CompanyAggregate.Fares", "CompanyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Company");
+                });
+
+            modelBuilder.Entity("TaxiFares.API.Domain.Aggregates.CityAggregate.City", b =>
+                {
+                    b.Navigation("Companies");
+                });
+
+            modelBuilder.Entity("TaxiFares.API.Domain.Aggregates.CompanyAggregate.Company", b =>
+                {
                     b.Navigation("Fares");
                 });
 #pragma warning restore 612, 618

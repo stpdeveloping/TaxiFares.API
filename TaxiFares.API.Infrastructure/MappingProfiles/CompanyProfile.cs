@@ -9,47 +9,16 @@ namespace TaxiFares.API.Infrastructure.MappingProfiles
     {
         public CompanyProfile()
         {
-            CreateMap<Company, CompanyViewModel>().ConstructUsing(
-                company => MapCompanyToViewModel(company));
-            CreateMap<CompanyViewModel, Company>().ConstructUsing(
-                companyViewModel =>
-                    MapCompanyViewModelToDomain(companyViewModel));
+            CreateMap<Company, CompanyOutputVM>().ForMember(
+                destination => destination.FaresViewModel, source =>
+                    source.MapFrom(source => source.Fares));
+            MapFaresAndFaresViewModel();
         }
 
-        private static CompanyViewModel MapCompanyToViewModel(
-            Company company)
+        private void MapFaresAndFaresViewModel()
         {
-            FaresViewModel faresViewModel =
-                MapFaresToViewModel(company.Fares);
-            return new CompanyViewModel
-            {
-                Id = company.Id,
-                Name = company.Name,
-                City = company.City,
-                FaresViewModel = faresViewModel
-            };
-        }
-
-        private static FaresViewModel MapFaresToViewModel(
-            Fares fares) => new FaresViewModel
-            {
-                I = fares.I,
-                II = fares.II,
-                III = fares.III,
-                IV = fares.IV
-            };
-
-        private static Company MapCompanyViewModelToDomain(
-            CompanyViewModel companyViewModel)
-        {
-            var domainCompany = new Company(companyViewModel.Id,
-                companyViewModel.Name, companyViewModel.City);
-            FaresViewModel faresViewModel =
-                companyViewModel.FaresViewModel;
-            domainCompany.UpdateFares(faresViewModel.I,
-                faresViewModel.II, faresViewModel.III,
-                faresViewModel.IV);
-            return domainCompany;
+            CreateMap<Fares, FaresViewModel>();
+            CreateMap<FaresViewModel, Fares>();
         }
     }
 }

@@ -1,14 +1,15 @@
-﻿using MediatR;
-using TaxiFares.API.Infrastructure.ViewModels;
+﻿using TaxiFares.API.Domain.Aggregates.CompanyAggregate;
+using TaxiFares.API.EventHandlers.CommandHandlers.Commands.Abstract;
+using TaxiFares.API.Infrastructure.ViewModels.CompanyViewModelChildren;
 
 namespace TaxiFares.API.EventHandlers.CommandHandlers.Commands
 {
-    public class CompanyUpdatedCommand : INotification
+    public class CompanyUpdatedCommand : CompanyAddedOrUpdatedCommand
     {
-        public readonly CompanyViewModel CompanyViewModel;
+        public readonly Company ExistingCompany;
 
-        public CompanyUpdatedCommand(
-            CompanyViewModel companyViewModel) =>
-            CompanyViewModel = companyViewModel;
+        public CompanyUpdatedCommand(Company existingCompany,
+            FaresViewModel faresViewModel) : base(faresViewModel) =>
+            ExistingCompany = existingCompany;
     }
 }

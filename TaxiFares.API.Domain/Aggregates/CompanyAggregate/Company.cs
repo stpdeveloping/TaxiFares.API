@@ -1,52 +1,40 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using TaxiFares.API.Domain.Aggregates.CityAggregate;
 using TaxiFares.API.Domain.Common;
+using TaxiFares.API.Domain.Common.Interfaces;
 using TaxiFares.API.Domain.Exceptions;
 
 namespace TaxiFares.API.Domain.Aggregates.CompanyAggregate
 {
-    public class Company : Entity, IAggregateRoot
+    public class Company : Entity<int>, IAggregateRoot
     {
-        [Required]
         public readonly string Name;
-        [Required]
-        public readonly string City;
+        public DateTime ChangeDate { get; }
 
-        [Required]
         public virtual Fares Fares { get; private set; }
+        public readonly string CityId;
+        public virtual City City { get; }
 
         public Company()
         {
         }
 
-        public Company(int id, string name, string city)
+        public Company(string name, Fares fares, string cityId)
         {
-            Id = id;
-            Name = name;
-            City = city;
+            Name = !string.IsNullOrEmpty(name) ? name :
+                throw new MissingCompanyDataException(nameof(name));
+            Fares = fares ?? throw new MissingCompanyDataException(
+                    nameof(fares));
+            CityId = cityId;
+            // change date to set here and in UpdateFares(...)
         }
 
-        public override bool Equals(object obj)
+        public void UpdateFares(Fares fares)
         {
-            if (obj is Company otherCompany)
-                return Name == otherCompany.Name &&
-                    City == otherCompany.City;
-            else return false;
+            if (fares != null)
+                Fares.Set(fares.I, fares.II, fares.III, fares.IV);
+            else
+                throw new MissingCityDataException(nameof(Fares));
         }
-
-        public override int GetHashCode() =>
-            (Name, City).GetHashCode();
-
-        public override void Validate()
-        {
-            if (string.IsNullOrEmpty(Name))
-                throw new MissingCompanyDataException(nameof(Name));
-            if (string.IsNullOrEmpty(City))
-                throw new MissingCompanyDataException(nameof(City));
-            if (Fares == null)
-                throw new MissingCompanyDataException(nameof(Fares));
-        }
-
-        public void UpdateFares(double I, double II, double III,
-            double IV) => Fares = new Fares(I, II, III, IV);
     }
 }

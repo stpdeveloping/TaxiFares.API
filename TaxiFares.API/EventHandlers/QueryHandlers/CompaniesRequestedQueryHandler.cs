@@ -1,35 +1,38 @@
 ﻿using AutoMapper;
 using MediatR;
 using System.Collections.Generic;
-using TaxiFares.API.Domain.Aggregates.CompanyAggregate;
-using TaxiFares.API.Domain.Common;
+using System.Threading;
+using System.Threading.Tasks;
+using TaxiFares.API.Domain.Aggregates.CityAggregate;
+using TaxiFares.API.Domain.Common.Interfaces;
 using TaxiFares.API.EventHandlers.QueryHandlers.Queries;
 using TaxiFares.API.Infrastructure.ViewModels;
 
 namespace TaxiFares.API.EventHandlers.QueryHandlers
 {
-    public class CompaniesRequestedQueryHandler :
-        RequestHandler<CompaniesRequested,
-            IEnumerable<CompanyViewModel>>
+    public class CompaniesRequestedQueryHandler
+        :
+        IRequestHandler<CompaniesRequested,
+            IEnumerable<CompanyOutputVM>>
     {
-        private readonly IRepository<Company> companyRepository;
+        private readonly IRepository<City, string> cityRepo;
         private readonly IMapper mapper;
 
         public CompaniesRequestedQueryHandler(
-            IRepository<Company> companyRepository, IMapper mapper)
+            IRepository<City, string> cityRepository, IMapper mapper)
         {
-            this.companyRepository = companyRepository;
+            cityRepo = cityRepository;
             this.mapper = mapper;
         }
 
-        protected override IEnumerable<CompanyViewModel> Handle(
-            CompaniesRequested request)
+        public async Task<IEnumerable<CompanyOutputVM>>
+            Handle(CompaniesRequested request,
+                CancellationToken cancellationToken)
         {
-            IEnumerable<Company> companies = companyRepository
-                .GetAll();
-            IEnumerable<CompanyViewModel> mappedCompanies =
-                mapper.Map<IEnumerable<CompanyViewModel>>(companies);
-            return mappedCompanies;
+            City city = await cityRepo.GetAsync(request.cityName,
+                cancellationToken);
+            return mapper.Map<IEnumerable<CompanyOutputVM>>(
+                city?.Companies);
         }
     }
 }

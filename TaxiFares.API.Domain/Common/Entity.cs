@@ -1,11 +1,7 @@
 ﻿namespace TaxiFares.API.Domain.Common
 {
-    public abstract class Entity
+    public abstract class Entity<TId>
     {
-        public int Id { get; protected set; }
-
-        public virtual void Validate()
-        {
-        }
+        public TId Id { get; protected set; }
     }
 }

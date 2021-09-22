@@ -1,33 +1,35 @@
 ﻿using AutoMapper;
-using MediatR;
 using System.Threading;
 using System.Threading.Tasks;
 using TaxiFares.API.Domain.Aggregates.CompanyAggregate;
-using TaxiFares.API.Domain.Common;
+using TaxiFares.API.Domain.Common.Interfaces;
+using TaxiFares.API.EventHandlers.CommandHandlers.Abstract;
 using TaxiFares.API.EventHandlers.CommandHandlers.Commands;
 
 namespace TaxiFares.API.EventHandlers.CommandHandlers
 {
     public class CompanyUpdatedCommandHandler :
-        INotificationHandler<CompanyUpdatedCommand>
+        CompanyAddedOrUpdatedCmdHandler<CompanyUpdatedCommand>
     {
-        private readonly IRepository<Company> companyRepository;
-        private readonly IMapper mapper;
-
         public CompanyUpdatedCommandHandler(
-            IRepository<Company> companyRepository, IMapper mapper)
+            IRepository<Company, int> companyRepo, IMapper mapper) :
+            base(companyRepo, mapper)
         {
-            this.companyRepository = companyRepository;
-            this.mapper = mapper;
         }
 
-        public async Task Handle(CompanyUpdatedCommand command,
+        public override async Task Handle(
+            CompanyUpdatedCommand notification,
             CancellationToken cancellationToken)
         {
-            var mappedCompany = mapper.Map<Company>(command
-                .CompanyViewModel);
-            await companyRepository.AddOrUpdateAsync(mappedCompany);
-            await companyRepository.SaveChangesAsync();
+            Company existingCompany = notification.ExistingCompany;
+            var inputFares = mapper.Map<Fares>(
+                notification.FaresViewModel);
+            if (!existingCompany.Fares.Equals(inputFares))
+            {
+                existingCompany.UpdateFares(inputFares);
+                CompanyRepo.Update(existingCompany);
+                await CompanyRepo.SaveChangesAsync(cancellationToken);
+            }
         }
     }
 }

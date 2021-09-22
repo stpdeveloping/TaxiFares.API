@@ -8,7 +8,7 @@ using TaxiFares.API.Infrastructure.ViewModels;
 
 namespace TaxiFares.API.Controllers
 {
-    [Route("api")]
+    [Route(Routes.Api)]
     public class CompaniesController : ControllerBase
     {
         private readonly IMediator mediator;
@@ -17,13 +17,13 @@ namespace TaxiFares.API.Controllers
             this.mediator = mediator;
 
         [HttpGet(Routes.Companies)]
-        public async ValueTask<IEnumerable<CompanyViewModel>>
-            GetCompanies() => await mediator.Send(
-                new CompaniesRequested());
+        public async ValueTask<IEnumerable<CompanyOutputVM>>
+            GetCompanies(string cityName) => await mediator.Send(
+                new CompaniesRequested(cityName));
 
         [HttpPut(Routes.Company)]
         public async ValueTask UpdateCompany(
-            CompanyViewModel company) => await mediator.Publish(
-                new CompanyUpdatedCommand(company));
+            CompanyInputVM company) => await mediator.Publish(
+                new CityUpdatedCommand(company));
     }
 }

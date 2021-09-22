@@ -7,6 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using TaxiFares.API.Extensions;
+using TaxiFares.API.HostedServices;
 using TaxiFares.API.Infrastructure;
 using TaxiFares.API.Infrastructure.MappingProfiles;
 
@@ -34,6 +35,7 @@ namespace TaxiFares.API
             services.AddDbDependencies(configuration);
             if (environment.IsDevelopment())
                 services.AddSwaggerGen();
+            services.AddHostedService<WithdrawnCompaniesCleaner>();
         }
 
         public void Configure(IApplicationBuilder app, Context context)
