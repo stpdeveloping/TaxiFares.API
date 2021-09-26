@@ -16,14 +16,13 @@ namespace TaxiFares.API.EventHandlers.CommandHandlers
         {
         }
 
-        public override async Task Handle(
-            WithdrawnCompaniesDeletedCmd command,
-            CancellationToken cancellationToken)
+        public override Task Handle(WithdrawnCompaniesDeletedCmd cmd, 
+            CancellationToken _)
         {
-            await CompanyRepo.RemoveRangeAsync(company =>
-                    company.ChangeDate <= DateTime.Now.AddMonths(-1),
-                cancellationToken);
-            await CompanyRepo.SaveChangesAsync(cancellationToken);
+            CompanyRepo.RemoveRange(company => 
+                    company.ChangeDate <= DateTime.Now.AddMonths(-1));
+            CompanyRepo.SaveChanges();
+            return Task.CompletedTask;
         }
     }
 }

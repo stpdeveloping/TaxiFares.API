@@ -17,14 +17,15 @@ namespace TaxiFares.API.EventHandlers.CommandHandlers
         {
         }
 
-        public override async Task Handle(CompanyAddedCommand command, 
-            CancellationToken cancellationToken)
+        public override Task Handle(CompanyAddedCommand command, 
+            CancellationToken _)
         {
             var inputFares = mapper.Map<Fares>(command.FaresViewModel);
             var newCompany = new Company(command.CompanyName,
                 inputFares, command.CityId);
             CompanyRepo.Add(newCompany);
-            await CompanyRepo.SaveChangesAsync(cancellationToken);
+            CompanyRepo.SaveChanges();
+            return Task.CompletedTask;
         }
     }
 }

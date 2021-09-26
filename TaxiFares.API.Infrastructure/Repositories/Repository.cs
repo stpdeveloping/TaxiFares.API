@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Threading;
-using System.Threading.Tasks;
 using TaxiFares.API.Domain.Common;
 using TaxiFares.API.Domain.Common.Interfaces;
 
@@ -16,34 +13,24 @@ namespace TaxiFares.API.Infrastructure.Repositories
 
         public Repository(Context context) => Context = context;
 
-        public async ValueTask<TEntity> GetAsync(TId id,
-            CancellationToken cancellationToken) =>
-            await GetAllAsync(cancellationToken).SingleOrDefaultAsync(
-                entity => entity.Id.Equals(id), cancellationToken);
+        public TEntity Get(TId id) => GetAll().SingleOrDefault(
+                entity => entity.Id.Equals(id));
 
         public void Add(TEntity entity) => Context.Add(entity);
 
         public virtual void Update(TEntity entity) =>
             Context.Update(entity);
 
-        public virtual async IAsyncEnumerable<TEntity> GetAllAsync(
-            [EnumeratorCancellation] CancellationToken cToken)
-        {
-            await foreach (TEntity entity in Context.Set<TEntity>()
-                .AsAsyncEnumerable())
-                yield return entity;
-        }
+        public virtual IEnumerable<TEntity> GetAll() => 
+            Context.Set<TEntity>();
 
-        public async ValueTask RemoveRangeAsync(
-            Func<TEntity, bool> predicate, CancellationToken cToken)
+        public void RemoveRange(Func<TEntity, bool> predicate)
         {
-            TEntity[] selectedEntities = await GetAllAsync(cToken)
-                .Where(predicate).ToArrayAsync(cToken);
+            IEnumerable<TEntity> selectedEntities = GetAll()
+                .Where(predicate);
             Context.Set<TEntity>().RemoveRange(selectedEntities);
         }
 
-        public async ValueTask SaveChangesAsync(
-            CancellationToken cancellationToken) =>
-            await Context.SaveChangesAsync(cancellationToken);
+        public void SaveChanges() => Context.SaveChanges();
     }
 }

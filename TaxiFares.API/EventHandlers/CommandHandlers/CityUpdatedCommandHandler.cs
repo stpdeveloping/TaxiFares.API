@@ -28,24 +28,24 @@ namespace TaxiFares.API.EventHandlers.CommandHandlers
         }
 
         public async Task Handle(CityUpdatedCommand command,
-            CancellationToken cancellationToken)
+            CancellationToken cToken)
         {
             companyInputVM = command.CompanyInputVM;
-            existingCity = await cityRepo.GetAsync(
-                companyInputVM.CityName, cancellationToken);
+            existingCity = cityRepo.Get(companyInputVM.CityName);
             if (existingCity == null)
-                await AddCity(cancellationToken);
-            await PublishCompanyAddedOrUpdatedCommand();
+                AddCity();
+            await PublishCompanyAddedOrUpdatedCommandAsync(cToken);
         }
 
-        private async Task AddCity(CancellationToken cancellationToken)
+        private void AddCity()
         {
             existingCity = new City(companyInputVM.CityName);
             cityRepo.Add(existingCity);
-            await cityRepo.SaveChangesAsync(cancellationToken);
+            cityRepo.SaveChanges();
         }
 
-        private async Task PublishCompanyAddedOrUpdatedCommand()
+        private async Task PublishCompanyAddedOrUpdatedCommandAsync(
+            CancellationToken cancellationToken)
         {
             Company existingCompany = existingCity.Companies
                 .GetByName(companyInputVM.Name);
@@ -53,10 +53,10 @@ namespace TaxiFares.API.EventHandlers.CommandHandlers
             if (existingCompany == null)
                 await mediator.Publish(new CompanyAddedCommand(
                         existingCity.Id, companyInputVM.Name,
-                        faresVM));
+                        faresVM), cancellationToken);
             else
                 await mediator.Publish(new CompanyUpdatedCommand(
-                        existingCompany, faresVM));
+                        existingCompany, faresVM), cancellationToken);
         }
     }
 }

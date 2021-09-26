@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace TaxiFares.API.Domain.Common.Interfaces
 {
@@ -9,16 +7,13 @@ namespace TaxiFares.API.Domain.Common.Interfaces
         TEntity : Entity<TId>, IAggregateRoot
     {
         /// <summary>
-        /// This method's implementation is using 
-        /// <c>GetAllAsync(CancellationToken cancellationToken)</c>
+        /// This method's implementation is using <c>GetAll()</c>
         /// </summary>
         /// <param name="id"></param>
-        /// <param name="cancellationToken"></param>
         /// <returns>
-        /// <typeparamref name="ValueTask"/> with database entity
+        /// Database <typeparamref name="TEntity"/>
         /// </returns>
-        ValueTask<TEntity> GetAsync(TId id,
-            CancellationToken cancellationToken);
+        TEntity Get(TId id);
         void Add(TEntity entity);
         void Update(TEntity entity);
         /// <summary>
@@ -26,23 +21,15 @@ namespace TaxiFares.API.Domain.Common.Interfaces
         /// nested entities, you should override it's implementation 
         /// in Repository class
         /// </summary>
-        /// <param name="cancellationToken"></param>
         /// <returns>
-        /// <typeparamref name="IAsyncEnumerable"/> with database 
-        /// entities
+        /// <typeparamref name="IEnumerable"/> with database entities
         /// </returns>
-        IAsyncEnumerable<TEntity> GetAllAsync(
-            CancellationToken cancellationToken);
+        IEnumerable<TEntity> GetAll();
         /// <summary>
-        /// This method's implementation is using 
-        /// <c>GetAllAsync(CancellationToken cancellationToken)</c> 
+        /// This method's implementation is using <c>GetAll()</c>
         /// </summary>
         /// <param name="predicate"></param>
-        /// <param name="cToken"></param>
-        /// <returns></returns>
-        ValueTask RemoveRangeAsync(Func<TEntity, bool> predicate,
-            CancellationToken cToken);
-        ValueTask SaveChangesAsync(
-            CancellationToken cancellationToken);
+        void RemoveRange(Func<TEntity, bool> predicate);
+        void SaveChanges();
     }
 }

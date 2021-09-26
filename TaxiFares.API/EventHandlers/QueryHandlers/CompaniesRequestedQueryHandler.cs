@@ -25,14 +25,12 @@ namespace TaxiFares.API.EventHandlers.QueryHandlers
             this.mapper = mapper;
         }
 
-        public async Task<IEnumerable<CompanyOutputVM>>
-            Handle(CompaniesRequestedQuery query,
-                CancellationToken cancellationToken)
+        public Task<IEnumerable<CompanyOutputVM>> Handle(
+            CompaniesRequestedQuery query, CancellationToken _)
         {
-            City city = await cityRepo.GetAsync(query.cityName,
-                cancellationToken);
-            return mapper.Map<IEnumerable<CompanyOutputVM>>(
-                city?.Companies);
+            City city = cityRepo.Get(query.cityName);
+            return Task.FromResult(mapper
+                .Map<IEnumerable<CompanyOutputVM>>(city?.Companies));
         }
     }
 }

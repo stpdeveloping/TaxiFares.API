@@ -17,9 +17,8 @@ namespace TaxiFares.API.EventHandlers.CommandHandlers
         {
         }
 
-        public override async Task Handle(
-            CompanyUpdatedCommand command,
-            CancellationToken cancellationToken)
+        public override Task Handle(CompanyUpdatedCommand command,
+            CancellationToken _)
         {
             Company existingCompany = command.ExistingCompany;
             var inputFares = mapper.Map<Fares>(command.FaresViewModel);
@@ -27,8 +26,9 @@ namespace TaxiFares.API.EventHandlers.CommandHandlers
             {
                 existingCompany.UpdateFares(inputFares);
                 CompanyRepo.Update(existingCompany);
-                await CompanyRepo.SaveChangesAsync(cancellationToken);
+                CompanyRepo.SaveChanges();
             }
+            return Task.CompletedTask;
         }
     }
 }
