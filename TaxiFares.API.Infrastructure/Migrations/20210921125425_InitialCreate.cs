@@ -1,6 +1,6 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore.Migrations;
+using System;
 using System.Reflection;
-using Microsoft.EntityFrameworkCore.Migrations;
 using TaxiFares.API.Infrastructure.Extensions;
 
 namespace TaxiFares.API.Infrastructure.Migrations
@@ -85,7 +85,8 @@ namespace TaxiFares.API.Infrastructure.Migrations
                 column: "CompanyId",
                 unique: true);
 
-            migrationBuilder.Sql(GetCreateTriggerOnFaresUpdateScript());
+            migrationBuilder.Sql(
+                GetCreateTriggerOnFaresUpdateScript());
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -100,9 +101,8 @@ namespace TaxiFares.API.Infrastructure.Migrations
                 name: "Cities");
         }
 
-        private string GetCreateTriggerOnFaresUpdateScript() => 
+        private string GetCreateTriggerOnFaresUpdateScript() =>
             executingAssembly.GetManifestResourceStream(
-                SqlFileNames.CreateTriggerOnFaresUpdate)
-            .ReadToEndAsync().Result;
+                SqlFileNames.CreateTriggerOnFaresUpdate).ReadToEnd();
     }
 }

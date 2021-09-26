@@ -2,7 +2,7 @@
 {
     public class SqlFileNames
     {
-        public readonly static string CreateTriggerOnFaresUpdate =
+        public static readonly string CreateTriggerOnFaresUpdate =
             $"{nameof(CreateTriggerOnFaresUpdate)}.sql";
     }
 }

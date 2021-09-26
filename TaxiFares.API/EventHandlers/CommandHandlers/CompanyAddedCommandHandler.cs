@@ -17,14 +17,12 @@ namespace TaxiFares.API.EventHandlers.CommandHandlers
         {
         }
 
-        public override async Task Handle(
-            CompanyAddedCommand notification,
+        public override async Task Handle(CompanyAddedCommand command, 
             CancellationToken cancellationToken)
         {
-            var inputFares = mapper.Map<Fares>(
-                notification.FaresViewModel);
-            var newCompany = new Company(notification.CompanyName,
-                inputFares, notification.CityId);
+            var inputFares = mapper.Map<Fares>(command.FaresViewModel);
+            var newCompany = new Company(command.CompanyName,
+                inputFares, command.CityId);
             CompanyRepo.Add(newCompany);
             await CompanyRepo.SaveChangesAsync(cancellationToken);
         }

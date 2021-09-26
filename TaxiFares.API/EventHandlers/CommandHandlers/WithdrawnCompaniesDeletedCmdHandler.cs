@@ -17,7 +17,7 @@ namespace TaxiFares.API.EventHandlers.CommandHandlers
         }
 
         public override async Task Handle(
-            WithdrawnCompaniesDeletedCmd notification,
+            WithdrawnCompaniesDeletedCmd command,
             CancellationToken cancellationToken)
         {
             await CompanyRepo.RemoveRangeAsync(company =>

@@ -12,7 +12,7 @@ namespace TaxiFares.API.EventHandlers.QueryHandlers
 {
     public class CompaniesRequestedQueryHandler
         :
-        IRequestHandler<CompaniesRequested,
+        IRequestHandler<CompaniesRequestedQuery,
             IEnumerable<CompanyOutputVM>>
     {
         private readonly IRepository<City, string> cityRepo;
@@ -26,10 +26,10 @@ namespace TaxiFares.API.EventHandlers.QueryHandlers
         }
 
         public async Task<IEnumerable<CompanyOutputVM>>
-            Handle(CompaniesRequested request,
+            Handle(CompaniesRequestedQuery query,
                 CancellationToken cancellationToken)
         {
-            City city = await cityRepo.GetAsync(request.cityName,
+            City city = await cityRepo.GetAsync(query.cityName,
                 cancellationToken);
             return mapper.Map<IEnumerable<CompanyOutputVM>>(
                 city?.Companies);

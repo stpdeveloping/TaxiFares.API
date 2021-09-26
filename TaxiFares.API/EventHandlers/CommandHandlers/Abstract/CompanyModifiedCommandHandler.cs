@@ -17,7 +17,7 @@ namespace TaxiFares.API.EventHandlers.CommandHandlers.Abstract
             IRepository<Company, int> companyRepository) =>
             CompanyRepo = companyRepository;
 
-        public abstract Task Handle(TCommand notification,
+        public abstract Task Handle(TCommand command,
             CancellationToken cancellationToken);
     }
 }

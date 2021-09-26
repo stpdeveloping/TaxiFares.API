@@ -19,7 +19,7 @@ namespace TaxiFares.API.Controllers
         [HttpGet(Routes.Companies)]
         public async ValueTask<IEnumerable<CompanyOutputVM>>
             GetCompanies(string cityName) => await mediator.Send(
-                new CompaniesRequested(cityName));
+                new CompaniesRequestedQuery(cityName));
 
         [HttpPut(Routes.Company)]
         public async ValueTask UpdateCompany(

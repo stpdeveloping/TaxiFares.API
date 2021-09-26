@@ -18,12 +18,11 @@ namespace TaxiFares.API.EventHandlers.CommandHandlers
         }
 
         public override async Task Handle(
-            CompanyUpdatedCommand notification,
+            CompanyUpdatedCommand command,
             CancellationToken cancellationToken)
         {
-            Company existingCompany = notification.ExistingCompany;
-            var inputFares = mapper.Map<Fares>(
-                notification.FaresViewModel);
+            Company existingCompany = command.ExistingCompany;
+            var inputFares = mapper.Map<Fares>(command.FaresViewModel);
             if (!existingCompany.Fares.Equals(inputFares))
             {
                 existingCompany.UpdateFares(inputFares);

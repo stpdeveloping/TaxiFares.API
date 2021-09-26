@@ -9,6 +9,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TaxiFares.API.Domain", "Tax
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TaxiFares.API.Infrastructure", "TaxiFares.API.Infrastructure\TaxiFares.API.Infrastructure.csproj", "{38AE2AA6-3898-4442-B071-92388CC67B46}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TaxiFares.API.Test", "TaxiFares.API.Test\TaxiFares.API.Test.csproj", "{6EC2517F-20C4-4C39-88EF-FE8C6F301536}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaxiFares.API.Test.ClassLibrary", "TaxiFares.API.Test.ClassLibrary\TaxiFares.API.Test.ClassLibrary.csproj", "{007E0AB6-40D4-445A-81A1-B7DD31F9D7C2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +31,14 @@ Global
 		{38AE2AA6-3898-4442-B071-92388CC67B46}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{38AE2AA6-3898-4442-B071-92388CC67B46}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{38AE2AA6-3898-4442-B071-92388CC67B46}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6EC2517F-20C4-4C39-88EF-FE8C6F301536}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6EC2517F-20C4-4C39-88EF-FE8C6F301536}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6EC2517F-20C4-4C39-88EF-FE8C6F301536}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6EC2517F-20C4-4C39-88EF-FE8C6F301536}.Release|Any CPU.Build.0 = Release|Any CPU
+		{007E0AB6-40D4-445A-81A1-B7DD31F9D7C2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{007E0AB6-40D4-445A-81A1-B7DD31F9D7C2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{007E0AB6-40D4-445A-81A1-B7DD31F9D7C2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{007E0AB6-40D4-445A-81A1-B7DD31F9D7C2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="AddCompanyWithChangeDateForTest.sql" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\AddCompanyWithChangeDateForTest.sql">
+      <LogicalName>AddCompanyWithChangeDateForTest.sql</LogicalName>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\TaxiFares.API\TaxiFares.API.csproj" />
+  </ItemGroup>
+
+</Project>
