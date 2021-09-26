@@ -1,8 +1,4 @@
 ﻿using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using TaxiFares.API.EventHandlers.CommandHandlers.Commands;
 using TaxiFares.API.Infrastructure.ViewModels;

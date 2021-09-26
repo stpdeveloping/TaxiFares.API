@@ -17,7 +17,5 @@
 Project is under active development
 
 ## Architecture
-API is written in **DDD** approach combined with **CQRS** pattern. Unlike to Microsoft's examples the queries are also using **Entity Framework** like commands for better project management. 
-API has integration tests, which are covering all functionalities.
-There are some development limitations due to using **SQLite** as database provider - let check documentation for details: <br/>https://docs.microsoft.com/pl-pl/ef/core/providers/sqlite/limitations
+API is written in **DDD** approach combined with **CQRS** pattern. Unlike to Microsoft's examples the queries are also using **Entity Framework** like commands for better project management. <br/>API has integration tests, which are covering all functionalities. <br/>There are some development limitations due to using **SQLite** as database provider - let check documentation for details: <br/>https://docs.microsoft.com/pl-pl/ef/core/providers/sqlite/limitations
 

@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using TaxiFares.API.Infrastructure.ViewModels;
-using TaxiFares.API.Infrastructure.ViewModels.CompanyViewModelChildren;
+﻿using TaxiFares.API.Infrastructure.ViewModels;
 
 namespace TaxiFares.API.Test.ClassLibrary.Models
 {
