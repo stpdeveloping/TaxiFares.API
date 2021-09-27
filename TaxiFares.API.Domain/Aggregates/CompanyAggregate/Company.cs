@@ -26,7 +26,6 @@ namespace TaxiFares.API.Domain.Aggregates.CompanyAggregate
             Fares = fares ?? throw new MissingCompanyDataException(
                     nameof(fares));
             CityId = cityId;
-            // change date to set here and in UpdateFares(...)
         }
 
         public void UpdateFares(Fares fares)

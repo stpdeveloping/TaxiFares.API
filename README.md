@@ -1,6 +1,6 @@
 # Taxi Fares API
 [![GitHub version](https://img.shields.io/badge/version-1.0.0-green.svg)](https://github.com/stpdeveloping/TaxiFares.API)
-> This microservice is part of Taxi Fares project. **TaxiFares API** receives fares from other microservice, called **Taxi Fares Reader Online** and saves them. Then these fares are fetched by **Taxi Fares Client**
+> This microservice is part of Taxi Fares project. **TaxiFares API** receives fares from other microservice, called **Taxi Fares Reader Online** and saves them. Then these fares are fetched by **Taxi Fares Browser Client**
 
 ## Technologies
 * **.NET 5**
