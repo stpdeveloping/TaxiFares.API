@@ -5,12 +5,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="AddCompanyWithChangeDateForTest.sql" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <EmbeddedResource Include="Resources\AddCompanyWithChangeDateForTest.sql">
-      <LogicalName>AddCompanyWithChangeDateForTest.sql</LogicalName>
+    <EmbeddedResource Include="Resources\AddCompanyWithChangeDateScript.sql">
+      <LogicalName>AddCompanyWithChangeDateScript.sql</LogicalName>
     </EmbeddedResource>
   </ItemGroup>
 

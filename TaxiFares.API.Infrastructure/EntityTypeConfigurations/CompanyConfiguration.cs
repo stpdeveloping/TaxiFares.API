@@ -5,7 +5,6 @@ using TaxiFares.API.Infrastructure.EntityTypeConfigurations.Interfaces;
 
 namespace TaxiFares.API.Infrastructure.EntityTypeConfigurations
 {
-    //[RegisterAs(typeof(ICompanyConfiguration), ServiceLifetime.Scoped)]
     public class CompanyConfiguration : ICompanyConfiguration
     {
         public void Configure(EntityTypeBuilder<Company> builder)

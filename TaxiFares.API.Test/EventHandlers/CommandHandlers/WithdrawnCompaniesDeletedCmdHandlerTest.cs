@@ -23,7 +23,7 @@ namespace TaxiFares.API.Test.EventHandlers.CommandHandlers
         private IEnumerable<CompanyOutputVM> companies;
 
         public WithdrawnCompaniesDeletedCmdHandlerTest() =>
-            companyForTest = new CompanyInputVMForTest();
+            companyForTest = new TestCompanyInputVM();
 
         [TestMethod]
         public async Task Handle_GivenCommand_DeletesCompanyModifiedTwoMonthsAgo_Async()

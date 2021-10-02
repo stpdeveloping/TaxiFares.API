@@ -4,7 +4,6 @@ using TaxiFares.API.Infrastructure.EntityTypeConfigurations.Interfaces;
 
 namespace TaxiFares.API.Infrastructure.EntityTypeConfigurations
 {
-    //[RegisterAs(typeof(IFaresConfiguration), ServiceLifetime.Scoped)]
     public class FaresConfiguration : IFaresConfiguration
     {
         public void Configure(EntityTypeBuilder<Fares> builder)

@@ -17,7 +17,7 @@ namespace TaxiFares.API.Test.EventHandlers.QueryHandlers
         private readonly CompanyInputVM companyForTest;
 
         public CompaniesRequestedQueryHandlerTest() =>
-            companyForTest = new CompanyInputVMForTest();
+            companyForTest = new TestCompanyInputVM();
 
         [TestMethod]
         public async Task Handle_GivenQuery_ReturnsCompanies_Async()

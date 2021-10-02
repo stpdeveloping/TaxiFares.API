@@ -2,16 +2,16 @@
 
 namespace TaxiFares.API.Test.ClassLibrary.Models
 {
-    public class CompanyInputVMForTest : CompanyInputVM
+    public class TestCompanyInputVM : CompanyInputVM
     {
         public const string TestName = "SuperTaxi";
         public const string TestCityName = "Katowice";
 
-        public CompanyInputVMForTest()
+        public TestCompanyInputVM()
         {
             Name = TestName;
             CityName = TestCityName;
-            FaresViewModel = new FaresViewModelForTest();
+            FaresViewModel = new TestFaresVM();
         }
     }
 }

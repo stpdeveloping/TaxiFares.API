@@ -17,7 +17,7 @@ namespace TaxiFares.API.Test.EventHandlers.CommandHandlers
         private readonly CompanyInputVM companyForTest;
 
         public CityUpdatedCmdHandlerTest() =>
-            companyForTest = new CompanyInputVMForTest();
+            companyForTest = new TestCompanyInputVM();
 
         [TestMethod]
         public async Task Handle_GivenCommand_AddsCompany_Async()
