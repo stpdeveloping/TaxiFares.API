@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\AddCompanyWithChangeDateScript.sql">
+      <LogicalName>AddCompanyWithChangeDateScript.sql</LogicalName>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\TaxiFares.API\TaxiFares.API.csproj" />
+  </ItemGroup>
+
+</Project>
